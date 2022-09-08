@@ -1,0 +1,92 @@
+.list_out_wrap {
+  /* overflow: auto; */
+  /* width: 90%; */
+  /* height: 400px; */
+  /* background-color: pink; */
+}
+
+.wrap_inner {
+  box-sizing: border-box;
+  width: 100%;
+  height: 80vh;
+  padding-top: 20px;
+  margin: 20 auto;
+  overflow: auto;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  background-color: #ccc;
+}
+
+.base_move,
+.test_line_0,
+.test_line_1,
+.test_line_2,
+.test_line_3,
+.test_line_4,
+.test_line_5 {
+  flex: none;
+  box-sizing: border-box;
+  height: 300px;
+  width: 30%;
+  margin-right: 20px;
+  background-color: pink;
+  position: relative;
+  bottom: 40px;
+}
+
+/* 分栏柱子 */
+.sep_target {
+  flex: none;
+  box-sizing: border-box;
+  height: 300px;
+  width: 20%;
+  margin-right: 20px;
+  background-color: blueviolet;
+  position: relative;
+  bottom: 40px;
+}
+
+/* 卡片正下方的圆点 */
+.test_line_0::before,
+.test_line_1::before,
+.test_line_2::before,
+.test_line_3::before,
+.test_line_4::before,
+.test_line_5::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  bottom: -20px;
+  left: calc(50% - 15px);
+  height: 10px;
+  width: 10px;
+  background-color: red;
+}
+
+/* 圆点右侧的线条，每个分组的最后一个没有线条 */
+.test_line_0::after,
+.test_line_1::after,
+.test_line_2::after,
+.test_line_3::after,
+.test_line_4::after,
+.test_line_5::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  bottom: -20px;
+  left: calc(50% - 5px);
+  height: 10px;
+  width: calc(100% + 10px);
+  background-color: pink;
+}
+
+.last_0::after,
+.last_1::after,
+.last_2::after,
+.last_3::after,
+.last_4::after,
+.last_5::after {
+  display: none;
+  content: '';
+}
