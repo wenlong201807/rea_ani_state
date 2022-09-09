@@ -1,24 +1,24 @@
-// import react, Component, { useEffect } from 'react';
-import lax from 'lax.js';
+import { useEffect, useRef } from 'react';
+import lax from './lax.js';
+// import lax from 'lax.js';
 
-import { Component } from 'react';
 import './list.css';
-class List extends Component {
-  // constructor() {
-  //   super();
-  // }
 
-  componentDidMount() {
-    const inDiv = document.querySelector('.wrap_inner');
+const List =()=> {
+  const listRef = useRef();
+  
+  useEffect(() => {
     lax.init();
-    lax.addDriver('scrollXL', function () {
-      return inDiv.scrollLeft;
+    lax.addDriver('scrollY', function () {
+      // console.log('=====:', listRef.current.scrollLeft);
+      return listRef.current.scrollLeft
     });
 
     lax.addElements(
+      // '.test_line_0',
       '.base_move',
       {
-        scrollXL: {
+        scrollY: {
           // translateX: [
           //   ["elInX", "elCenterX", "elOutX"],
           //   [0, 'screenWidth/2', 'screenWidth'],
@@ -28,12 +28,12 @@ class List extends Component {
           // ],
           height: [
             ['elInX', 'elCenterX', 'elOutX'],
-            [300, 'screenWidth/2', 300],
+            [300, 'elHeight * 1.3', 300],
             // ['screenWidth/2', 'screenWidth', 'screenWidth/2'],
             {
               easing: 'easeInOutQuart',
               cssFn: (val) => {
-                console.log('height:', val, inDiv.scrollLeft);
+                // console.log('height:', val, inDiv.scrollLeft);
                 return val;
               },
             },
@@ -66,20 +66,22 @@ class List extends Component {
         },
       },
     );
-  }
 
-  componentWillUnmount() {
-    const inDiv = document.querySelector('.wrap_inner');
-    lax.removeElements('.base_move')
-    lax.removeElement(inDiv)
+    return () => {
+lax.removeElements('.base_move')
+    lax.removeElement(listRef)
+    }
+  },[])
 
-  }
 
-  render() {
+
+
+
+  // render() {
     return (
       <div className="list_wrap">
         <div> 我是大列表 </div>
-        <div className="wrap_inner">
+        <div className="wrap_inner" ref={listRef}>
           <div id="one" className="base_move test_line_0">
             111
           </div>
@@ -93,10 +95,10 @@ class List extends Component {
             4444
           </div>
           <div className="sep_target">我是固定柱子，分割线1111</div>
-          <div className="base_move test_line_1"></div>
-          <div className="base_move test_line_1"></div>
-          <div className="base_move test_line_1"></div>
-          <div className="base_move test_line_1"></div>
+          <div className="lax base_move test_line_1"></div>
+          <div className="lax base_move test_line_1"></div>
+          <div className="lax base_move test_line_1"></div>
+          <div className="lax base_move test_line_1"></div>
           <div className="base_move test_line_1 last_1"></div>
           <div className="sep_target">我是固定柱子，分割线1111</div>
           <div className="base_move test_line_2"></div>
@@ -112,7 +114,7 @@ class List extends Component {
         </div>
       </div>
     );
-  }
+  // }
 }
 
 export default List;
